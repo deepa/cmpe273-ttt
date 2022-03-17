@@ -1,0 +1,53 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from TTTService WSDL service -->
+
+  <service name="TTT" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://tt"/>
+      <parameter name="wsdlServiceElement" value="TTTService"/>
+      <parameter name="schemaQualified" value="http://tt"/>
+      <parameter name="wsdlServicePort" value="TTT"/>
+      <parameter name="className" value="tt.TTTSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="TTT"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="move" qname="operNS:move" xmlns:operNS="http://tt" returnQName="retNS:moveReturn" xmlns:retNS="http://tt" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:idgame" xmlns:pns="http://tt" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:position" xmlns:pns="http://tt" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:mark" xmlns:pns="http://tt" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="main" qname="operNS:main" xmlns:operNS="http://tt" soapAction="" >
+        <parameter qname="pns:args" xmlns:pns="http://tt" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="addPlayer" qname="operNS:addPlayer" xmlns:operNS="http://tt" returnQName="retNS:addPlayerReturn" xmlns:retNS="http://tt" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:name" xmlns:pns="http://tt" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="checkWin" qname="operNS:checkWin" xmlns:operNS="http://tt" returnQName="retNS:checkWinReturn" xmlns:retNS="http://tt" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:idgame" xmlns:pns="http://tt" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="deletePlayer" qname="operNS:deletePlayer" xmlns:operNS="http://tt" soapAction="" >
+        <parameter qname="pns:key" xmlns:pns="http://tt" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="startGame" qname="operNS:startGame" xmlns:operNS="http://tt" returnQName="retNS:startGameReturn" xmlns:retNS="http://tt" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:player1" xmlns:pns="http://tt" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:player2" xmlns:pns="http://tt" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="chooseOpponent" qname="operNS:chooseOpponent" xmlns:operNS="http://tt" returnQName="retNS:chooseOpponentReturn" xmlns:retNS="http://tt" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:idplayer" xmlns:pns="http://tt" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getOpponentID" qname="operNS:getOpponentID" xmlns:operNS="http://tt" returnQName="retNS:getOpponentIDReturn" xmlns:retNS="http://tt" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:idplayer" xmlns:pns="http://tt" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="startGame checkWin getOpponentID chooseOpponent addPlayer deletePlayer move main"/>
+
+  </service>
+</deployment>
